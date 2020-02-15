@@ -1,0 +1,7 @@
+hello-world-video-venv/
+client_secrets.json
+*.mkv
+*.png
+*.avi
+*.mp3
+*-oauth2*
