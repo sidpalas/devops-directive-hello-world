@@ -9,6 +9,7 @@ from PIL import Image, ImageDraw, ImageFont
 from upload_video import get_authenticated_service, initialize_upload
 
 def animate_single_line(base_background_image, input_string, line_y_position, start_frame):
+  fnt = ImageFont.truetype('Monaco', 25)
   input_string = '$ ' + input_string
   for i in range(len(input_string)):
     
@@ -25,47 +26,50 @@ def get_frame_list():
     img_list.append(img)
   return img_list
 
-def create_video_from_frames(frame_list, frame_size):
-  out = cv2.VideoWriter('content_files/hello_world.avi',cv2.VideoWriter_fourcc(*'DIVX'), 15, frame_size)
+def create_video_from_frames(frame_list, frame_size, filename):
+  out = cv2.VideoWriter(filename, cv2.VideoWriter_fourcc(*'DIVX'), 15, frame_size)
   for i in range(len(frame_list)):
     frame_idx = i
     out.write(frame_list[frame_idx])
 
   out.release()
 
-def create_audio(inputs_strings):
+def create_audio(input_strings, filename):
   audio_text = ''.join(input_strings)
   myobj = gTTS(text=audio_text) 
-  myobj.save("content_files/hello_world.mp3") 
+  myobj.save(filename) 
   
-def mux_audio_and_video():  
-  cmd = 'ffmpeg -y -i content_files/hello_world.mp3  -r 30 -i content_files/hello_world.avi -filter:a aresample=async=1 -c:a flac -c:v copy hello_world_video_and_audio.mkv'
+def mux_audio_and_video(video_filename, audio_filename, output_filename):  
+  cmd = f'ffmpeg -y -i {audio_filename}  -r 30 -i {video_filename} -filter:a aresample=async=1 -c:a flac -c:v copy {output_filename}'
   subprocess.call(cmd, shell=True)                           
   print('Muxing Done')
 
 if __name__ == "__main__":
-  frame = 0
-  frame_size = (720,480)
-  line_height = 35
-  input_strings = [
+  FRAME_SIZE = (720,480)
+  LINE_HEIGHT = 35
+  INPUT_STRINGS = [
     'Hello YouTube! ', 
     'This video was created by a script... .',
     '.', # This extra period adds a slight pause in the audio
     'Welcome to DevOps Directive!'
     '                                                     '
     ]
-  fnt = ImageFont.truetype('Monaco', 25)
-  background_img = Image.new('RGB', frame_size, color = 'black')
+  VIDEO_FILENAME = 'content_files/hello_world.avi'
+  AUDIO_FILENAME = 'content_files/hello_world.mp3'
+  OUTPUT_FILENAME = 'hello_world_video_and_audio.mkv'
 
-  for string_idx, input_string in enumerate(input_strings):
-    line_y_position = frame_size[1]/2 - line_height * (0.5 + len(input_strings) / 2) + line_height * string_idx
+  frame = 0
+  background_img = Image.new('RGB', FRAME_SIZE, color = 'black')
+
+  for string_idx, input_string in enumerate(INPUT_STRINGS):
+    line_y_position = FRAME_SIZE[1]/2 - LINE_HEIGHT * (0.5 + len(INPUT_STRINGS) / 2) + LINE_HEIGHT * string_idx
     frame = 1 + animate_single_line(background_img, input_string, line_y_position, frame)
 
   frame_list = get_frame_list()
-  create_video_from_frames(frame_list, frame_size)
+  create_video_from_frames(frame_list, FRAME_SIZE, VIDEO_FILENAME)
 
-  create_audio(input_strings)
-  mux_audio_and_video()
+  create_audio(INPUT_STRINGS, AUDIO_FILENAME)
+  mux_audio_and_video(VIDEO_FILENAME, AUDIO_FILENAME, OUTPUT_FILENAME)
 
   video_description = '''
 This video was created (and uploaded) using:
