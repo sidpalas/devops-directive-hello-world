@@ -1,12 +1,18 @@
-Create:
+## DevOps Directive Hello World Video
 
-        python create_video.py
+Video can be see at: `<INSERT LINK>`
+Making of the video can be see at: `<INSERT LINK>`
 
-Upload:
+---
 
-        python upload_video.py \
-            --noauth_local_webserver \
-            --file="hello_world_video_and_audio.mkv" \
-            --title="Hello Youtube! (AUDIO & VIDEO generated and uploaded with python)" \
-            --description="This video was created (and uploaded) using: Python, OpenCV, gTTS, ffmpeg, and the YouTube API. More content coming soon\! http://devopsdirective.com" \
-            --category=28
+Setup Instructions: 
+0. Create and activate python 3.7 virtual environment (`python3 -m venv /path/to/new/venv && source path/to/new/venv/bin/activate`)
+1. Install dependencies (`pip install -r requirements.txt`)
+2. Enable Youtube Data API and create client secrets in [Google Cloud Console](https://console.developers.google.com/apis/api/youtube.googleapis.com/credentials)
+3. Run `create_and_upload_video.py` (uses oauth2 to authorize to YouTube account)
+
+---
+
+This is the first of many pieces of content from DevOps Directive... stay tuned! 
+- Youtube (https://www.youtube.com/channel/UC4MdpjzjPuop_qWNAvR23JA)
+- Website (https://devopsdirective.com)

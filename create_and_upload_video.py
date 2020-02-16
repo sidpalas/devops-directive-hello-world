@@ -1,10 +1,12 @@
 import cv2
 import glob
 import subprocess
+from argparse import Namespace
+from apiclient.errors import HttpError
 from gtts import gTTS 
 from PIL import Image, ImageDraw, ImageFont
 
-# TODO: Add blinking cursor (maybe)
+from upload_video import get_authenticated_service, initialize_upload
 
 def animate_single_line(base_background_image, input_string, line_y_position, start_frame):
   input_string = '$ ' + input_string
@@ -46,7 +48,7 @@ if __name__ == "__main__":
   frame_size = (720,480)
   line_height = 35
   input_strings = [
-    'Hello Youtube!  ', 
+    'Hello YouTube!  ', 
     'This video was created by a computer....',
     '',
     'Welcome to DevOps Directive!'
@@ -64,3 +66,33 @@ if __name__ == "__main__":
 
   create_audio(input_strings)
   mux_audio_and_video()
+
+  args = Namespace(
+    file='hello_world_video_and_audio.mkv',
+    title='Hello Youtube! (AUDIO & VIDEO generated and uploaded with python)',
+    description='''
+This video was created (and uploaded) using:
+- Python
+- OpenCV
+- gTTS
+- ffmpeg 
+- YouTube API. 
+
+More content coming soon! 
+
+Code used to generate and upload the video @ https://github.com/sidpalas/devops-directive-hello-world
+
+http://devopsdirective.com
+''',
+    category='28',
+    keywords='',
+    privacyStatus='public',
+    logging_level='DEBUG',
+    noauth_local_webserver='true'
+  )
+
+  youtube = get_authenticated_service(args)
+  try:
+    initialize_upload(youtube, args)
+  except HttpError as e:
+    print("An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
