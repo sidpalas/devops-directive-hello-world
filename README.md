@@ -1,6 +1,6 @@
 ## DevOps Directive Hello World Video
 
-- Video can be see at: `<INSERT LINK>`
+- Video can be see at: [LINK](https://www.youtube.com/watch?v=7CIakJ8PMZs)
 - Making of the video can be see at: `<INSERT LINK>`
 
 <img src="images/hello_youtube.png" height="300">

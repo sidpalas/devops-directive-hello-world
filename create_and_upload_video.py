@@ -48,11 +48,11 @@ if __name__ == "__main__":
   frame_size = (720,480)
   line_height = 35
   input_strings = [
-    'Hello YouTube!  ', 
-    'This video was created by a computer....',
-    '',
+    'Hello YouTube! ', 
+    'This video was created by a script... .',
+    '.', # This extra period adds a slight pause in the audio
     'Welcome to DevOps Directive!'
-    '                            '
+    '                                                     '
     ]
   fnt = ImageFont.truetype('Monaco', 25)
   background_img = Image.new('RGB', frame_size, color = 'black')
@@ -67,23 +67,28 @@ if __name__ == "__main__":
   create_audio(input_strings)
   mux_audio_and_video()
 
-  args = Namespace(
-    file='hello_world_video_and_audio.mkv',
-    title='Hello Youtube! (AUDIO & VIDEO generated and uploaded with python)',
-    description='''
+  video_description = '''
 This video was created (and uploaded) using:
+
 - Python
 - OpenCV
 - gTTS
 - ffmpeg 
-- YouTube API. 
+- The YouTube API 
 
 More content coming soon! 
 
 Code used to generate and upload the video @ https://github.com/sidpalas/devops-directive-hello-world
 
 http://devopsdirective.com
-''',
+'''
+  
+  # Creating the namespace directly (rather than using argparse)
+  # enabled me to make the video description to span multiple lines
+  args = Namespace(
+    file='hello_world_video_and_audio.mkv',
+    title='Hello Youtube! (AUDIO & VIDEO generated and uploaded with python)',
+    description=video_description,
     category='28',
     keywords='',
     privacyStatus='public',
