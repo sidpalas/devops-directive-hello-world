@@ -3,6 +3,9 @@
 Video can be see at: `<INSERT LINK>`
 Making of the video can be see at: `<INSERT LINK>`
 
+<img src="images/hello_youtube.png" height="300">
+
+
 ---
 
 Setup Instructions: 
