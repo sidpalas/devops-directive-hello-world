@@ -5,6 +5,11 @@
 
 <img src="images/hello_youtube.png" height="300">
 
+---
+
+### Prerequisites:
+- Python 3 (`brew install python3`)
+- ffmpeg (`brew install ffmpeg`)
 
 ---
 
@@ -19,4 +24,4 @@
 
 This is the first of many pieces of content from DevOps Directive... stay tuned! 
 - Youtube (https://www.youtube.com/channel/UC4MdpjzjPuop_qWNAvR23JA)
-- Website (https://devopsdirective.com)
+- Website (http://devopsdirective.com)
