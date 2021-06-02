@@ -21,4 +21,4 @@ rsa==4.0
 six==1.14.0
 soupsieve==1.9.5
 uritemplate==3.0.1
-urllib3==1.25.8
+urllib3==1.26.5
